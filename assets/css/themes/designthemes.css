@@ -1,0 +1,9 @@
+.page-template-default.page div[class*="dtlms"] .selection-box { display: inline-block; }
+.page-template-default.page div[class*="dtlms"] .selection-box:after { display: none; }
+
+div[class*="listing-holder"] div[class*="listing-rightside-filter"] .selection-box:before { line-height: 48px; }
+body[class*="single-dtlms"] #respond .comment-form #wp-comment-cookies-consent { margin: 5px 10px 0 0; }
+
+.dtlms-course-result-curriculum-container table.dtlms-course-curriculum-table th, .dtlms-class-result-curriculum-container table.dtlms-class-curriculum-table th, body[class*="single-dtlms"] .widget_calendar .calendar_wrap table th { color: #ffffff; }
+
+body[class*="single-dtlms"] ul.commentlist li #respond { padding-top: 30px; }

@@ -1,0 +1,53 @@
+<wpml-config>
+
+    <custom-fields>
+        <custom-field action="translate">course-curriculum</custom-field>
+        <custom-field action="translate">dtlms-class-maintabtitle</custom-field>
+        <custom-field action="translate">dtlms-class-content-title</custom-field>
+        <custom-field action="translate">dtlms-class-shortcode</custom-field>
+        <custom-field action="translate">dtlms-class-address</custom-field>
+        <custom-field action="translate">dtlms-class-accessories-tabtitle</custom-field>
+        <custom-field action="translate">dtlms-class-accessories-label</custom-field>
+        <custom-field action="translate">dtlms-class-accessories-value</custom-field>
+        <custom-field action="translate">dtlms-class-accessories-description</custom-field>
+        <custom-field action="translate">dtlms-class-tabs-title</custom-field>
+        <custom-field action="translate">dtlms-class-tabs-content</custom-field>
+        <custom-field action="translate">sidebar-content</custom-field>
+        <custom-field action="translate">media-attachment-titles</custom-field>
+        <custom-field action="translate">sidebar-content</custom-field>
+        <custom-field action="translate">lesson-curriculum</custom-field>
+        <custom-field action="translate">quiz-subtitle</custom-field>
+        <custom-field action="translate">quiz-postmsg</custom-field>
+        <custom-field action="translate">multichoice-answers</custom-field>
+        <custom-field action="translate">multicorrect-answers</custom-field>
+        <custom-field action="translate">text-before-gap</custom-field>
+        <custom-field action="translate">gap</custom-field>
+        <custom-field action="translate">text-after-gap</custom-field>
+        <custom-field action="translate">singleline-answer</custom-field>
+        <custom-field action="translate">multiline-answer</custom-field>
+        <custom-field action="translate">answer-hint</custom-field>
+        <custom-field action="translate">answer-explanation</custom-field>
+        <custom-field action="translate">assignment-subtitle</custom-field>
+        <custom-field action="translate">review-or-feedback</custom-field>        
+    </custom-fields>
+
+    <custom-types>
+        <custom-type translate="1">dtlms_classes</custom-type>
+        <custom-type translate="1">dtlms_courses</custom-type>
+        <custom-type translate="1">dtlms_lessons</custom-type>
+        <custom-type translate="1">dtlms_quizzes</custom-type>
+        <custom-type translate="1">dtlms_questions</custom-type>
+        <custom-type translate="1">dtlms_assignments</custom-type>
+        <custom-type translate="1">dtlms_certificates</custom-type>
+        <custom-type translate="1">dtlms_gradings</custom-type>
+        <custom-type translate="1">dtlms_packages</custom-type>
+        <custom-type translate="1">dtlms_payments</custom-type>        
+    </custom-types>
+
+    <taxonomies>
+        <taxonomy translate="1">course_category</taxonomy>
+        <taxonomy translate="1">question_category</taxonomy>        
+		<taxonomy translate="0">dt_dummy</taxonomy>
+    </taxonomies>
+
+</wpml-config>
