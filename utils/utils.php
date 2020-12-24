@@ -158,7 +158,7 @@ if(!function_exists('dtlms_skin_option')) {
 				$output = (isset($options [$key1]) && !empty($options [$key1])) ? $options [$key1] : '';
 			}
 		} else {
-			$options = '';
+			$options = array();
 		}
 
 		if( empty ( $output ) ) {
@@ -260,9 +260,9 @@ function dtlms_generate_curriculum_page_contents() {
 	$current_user = wp_get_current_user();
 	$user_id = $current_user->ID;
 
-	$course_id = sanitize_text_field( $_REQUEST['course_id'] );
-	$parent_curriculum_id = sanitize_text_field( $_REQUEST['parent_curriculum_id'] );
-	$curriculum_id = sanitize_text_field( $_REQUEST['curriculum_id'] );
+	$course_id = dtlms_recursive_sanitize_text_field( $_REQUEST['course_id'] );
+	$parent_curriculum_id = dtlms_recursive_sanitize_text_field( $_REQUEST['parent_curriculum_id'] );
+	$curriculum_id = dtlms_recursive_sanitize_text_field( $_REQUEST['curriculum_id'] );
 
     if(get_post_type($curriculum_id) == 'dtlms_lessons') {
     	dtlms_generate_lesson_page_contents($user_id, $course_id, $curriculum_id, $parent_curriculum_id);
@@ -1110,4 +1110,103 @@ function dtlms_generate_loader_html($add_first_class = true) {
 				</div>';
 
     return $output;
+}
+
+// Get product object
+if(!function_exists('dtlms_get_product_object')) {
+	function dtlms_get_product_object ( $wc_product_id = 0 ) {
+
+		if ( class_exists( 'WooCommerce' ) ) {
+
+			$wc_product_object = wc_get_product( $wc_product_id );
+			return $wc_product_object;
+
+		}
+
+		return false;
+
+	}
+}
+
+// Check item is in cart
+if(!function_exists('dtlms_check_item_is_in_cart')) {
+	function dtlms_check_item_is_in_cart( $product_id ){
+
+		if ( $product_id > 0 ) {
+
+			foreach( WC()->cart->get_cart() as $cart_item_key => $values ) {
+				$cart_product = $values['data'];
+				if( $product_id == $cart_product->get_id() ) {
+					return true;
+				}
+			}
+
+		}
+
+		return false;
+
+	}
+}
+
+if(!function_exists('dtlms_get_item_price_html')) {
+	function dtlms_get_item_price_html($product) {
+
+		$woo_price = '';
+
+		if(!empty($product)) {
+
+			$woo_regular_price = $product->get_regular_price();
+			$woo_sale_price = $product->get_sale_price();
+
+			if($woo_regular_price != '' && $woo_sale_price != '') {
+
+				$woo_price .= '<del><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">'.get_woocommerce_currency_symbol().'</span>'.esc_html( $woo_regular_price ).'</span></del>';
+
+				$woo_price .= '<ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">'.get_woocommerce_currency_symbol().'</span>'.esc_html( $woo_sale_price ).'</span></ins>';
+
+			} else if($woo_regular_price != '') {
+
+				$woo_price .= '<ins><span class="woocommerce-Price-amount amount"><span class="woocommerce-Price-currencySymbol">'.get_woocommerce_currency_symbol().'</span>'.esc_html( $woo_regular_price ).'</span></ins>';
+
+			}
+
+		}
+
+		return $woo_price;
+
+	}
+}
+
+if(!function_exists('dtlms_check_item_has_price')) {
+	function dtlms_check_item_has_price($product) {
+
+		if(!empty($product)) {
+
+			$woo_regular_price = $product->get_regular_price();
+			$woo_sale_price = $product->get_sale_price();
+
+			if($woo_regular_price > 0 || $woo_sale_price > 0) {
+				return true;
+			}
+
+		}
+
+		return false;
+
+	}
+}
+
+if(!function_exists('dtlms_recursive_sanitize_text_field')) {
+	function dtlms_recursive_sanitize_text_field($array) {
+    	foreach ( $array as $key => &$value ) {
+        	if ( is_array( $value ) ) {
+            	$value = dtlms_recursive_sanitize_text_field($value);
+        	}
+        	else {
+            	$value = sanitize_text_field( $value );
+        	}	
+    	}
+
+    	return $array;
+    }
 }

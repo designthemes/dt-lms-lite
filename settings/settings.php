@@ -54,12 +54,12 @@ function dtlms_settings_options($current) {
 	$tabs = apply_filters( 'dtlms_settings', $tabs );
 
 	if ( in_array( 'administrator', (array) $current_user->roles ) ) {
-		$current = isset( $_GET['parenttab'] ) ? sanitize_text_field( $_GET['parenttab'] ) : 'general';
+		$current = isset( $_GET['parenttab'] ) ? dtlms_recursive_sanitize_text_field( $_GET['parenttab'] ) : 'general';
 	} else if ( in_array( 'instructor', (array) $current_user->roles ) ) {
 	    if('true' ==  dtlms_option('general','allow-instructor-setcommission')) {
-	    	$current = isset( $_GET['parenttab'] ) ? sanitize_text_field( $_GET['parenttab'] ) : 'set_commission';
+	    	$current = isset( $_GET['parenttab'] ) ? dtlms_recursive_sanitize_text_field( $_GET['parenttab'] ) : 'set_commission';
 	    } else {
-	    	$current = isset( $_GET['parenttab'] ) ? sanitize_text_field( $_GET['parenttab'] ) : 'import';
+	    	$current = isset( $_GET['parenttab'] ) ? dtlms_recursive_sanitize_text_field( $_GET['parenttab'] ) : 'import';
 	    }
    	}
 

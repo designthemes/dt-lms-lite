@@ -4,8 +4,8 @@ add_action( 'wp_ajax_dtlms_generate_course_result', 'dtlms_generate_course_resul
 add_action( 'wp_ajax_nopriv_dtlms_generate_course_result', 'dtlms_generate_course_result' );
 function dtlms_generate_course_result() {
 
-	$course_id = sanitize_text_field( $_REQUEST['course_id'] );
-	$user_id   = sanitize_text_field( $_REQUEST['user_id'] );
+	$course_id = dtlms_recursive_sanitize_text_field( $_REQUEST['course_id'] );
+	$user_id   = dtlms_recursive_sanitize_text_field( $_REQUEST['user_id'] );
 
 	$output = dtlms_course_overall_result($course_id, $user_id, 'course');
 
@@ -269,22 +269,22 @@ function dtlms_load_course_curriculum_list($dashboard_course_id, $user_id) {
 	if($dashboard_course_id > 0) {
 		$course_id = $dashboard_course_id;
 	} else {
-		$course_id = isset($_REQUEST['course_id']) ? sanitize_text_field( $_REQUEST ['course_id'] ) : -1;
+		$course_id = isset($_REQUEST['course_id']) ? dtlms_recursive_sanitize_text_field( $_REQUEST ['course_id'] ) : -1;
 	}
 
-	$user_id = isset($_REQUEST['user_id']) ? sanitize_text_field( $_REQUEST['user_id'] ) : $user_id;
+	$user_id = isset($_REQUEST['user_id']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['user_id'] ) : $user_id;
 
 	$curriculum_details = get_user_meta($user_id, $course_id, true);
 
 	// Pagination script Start
 	$ajax_call            = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-	$current_page         = isset($_REQUEST['current_page']) ? sanitize_text_field( $_REQUEST['current_page'] ) : 1;
-	$offset               = isset($_REQUEST['offset']) ? sanitize_text_field( $_REQUEST['offset'] ) : 0;
+	$current_page         = isset($_REQUEST['current_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['current_page'] ) : 1;
+	$offset               = isset($_REQUEST['offset']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['offset'] ) : 0;
 	$frontend_postperpage = (dtlms_option('general','frontend-postperpage') != '') ? dtlms_option('general','frontend-postperpage') : 10;
-	$post_per_page        = isset($_REQUEST['post_per_page']) ? sanitize_text_field( $_REQUEST['post_per_page'] ) : $frontend_postperpage;
+	$post_per_page        = isset($_REQUEST['post_per_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['post_per_page'] ) : $frontend_postperpage;
 
-	$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_course_curriculum_list';
-	$output_div    = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-course-result-curriculum-container';
+	$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_course_curriculum_list';
+	$output_div    = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-course-result-curriculum-container';
 	// Pagination script End
 
 	$course_curriculum = get_post_meta ($course_id, 'course-curriculum', true);
@@ -459,8 +459,8 @@ add_action( 'wp_ajax_dtlms_view_curriculum_details', 'dtlms_view_curriculum_deta
 add_action( 'wp_ajax_nopriv_dtlms_view_curriculum_details', 'dtlms_view_curriculum_details' );
 function dtlms_view_curriculum_details() {
 
-	$curriculum_id       = sanitize_text_field( $_REQUEST['curriculum_id'] );
-	$curriculum_grade_id = sanitize_text_field( $_REQUEST['curriculum_grade_id'] );
+	$curriculum_id       = dtlms_recursive_sanitize_text_field( $_REQUEST['curriculum_id'] );
+	$curriculum_grade_id = dtlms_recursive_sanitize_text_field( $_REQUEST['curriculum_grade_id'] );
 
 	$course_id = get_post_meta($curriculum_id, 'dtlms-course-id', true);
 	$user_id   = get_post_meta($curriculum_id, 'dtlms-user-id', true);

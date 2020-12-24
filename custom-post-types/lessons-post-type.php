@@ -106,44 +106,44 @@ if( !class_exists('DTLMSLessonsPostType') ) {
 			if ( (key_exists('post_type', $_POST)) && ('dtlms_lessons' == $_POST['post_type']) ) :
 
 				if( isset( $_POST ['free-lesson'] ) && $_POST ['free-lesson'] != '' ) {
-					update_post_meta ( $post_id, 'free-lesson', sanitize_text_field ( $_POST ['free-lesson'] ) );
+					update_post_meta ( $post_id, 'free-lesson', dtlms_recursive_sanitize_text_field ( $_POST ['free-lesson'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'free-lesson' );
 				}
 
 				if( isset( $_POST ['lesson-curriculum'] ) && !empty($_POST ['lesson-curriculum'])) {
-					update_post_meta ( $post_id, 'lesson-curriculum', sanitize_text_field ( $_POST ['lesson-curriculum'] ) );
+					update_post_meta ( $post_id, 'lesson-curriculum', dtlms_recursive_sanitize_text_field ( $_POST ['lesson-curriculum'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'lesson-curriculum' );
 				}
 
 				if( isset( $_POST ['duration'] ) && $_POST ['duration'] != '') {
-					update_post_meta ( $post_id, 'duration', sanitize_text_field ( $_POST ['duration'] ) );
+					update_post_meta ( $post_id, 'duration', dtlms_recursive_sanitize_text_field ( $_POST ['duration'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'duration' );
 				}
 
 				if( isset( $_POST ['duration-parameter'] ) && $_POST ['duration-parameter'] != '') {
-					update_post_meta ( $post_id, 'duration-parameter', sanitize_text_field ( $_POST ['duration-parameter'] ) );
+					update_post_meta ( $post_id, 'duration-parameter', dtlms_recursive_sanitize_text_field ( $_POST ['duration-parameter'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'duration-parameter' );
 				}
 
 
 				if( isset( $_POST ['lesson-maximum-mark'] ) && $_POST ['lesson-maximum-mark'] != '' ) {
-					update_post_meta ( $post_id, 'lesson-maximum-mark', sanitize_text_field ( $_POST ['lesson-maximum-mark'] ) );
+					update_post_meta ( $post_id, 'lesson-maximum-mark', dtlms_recursive_sanitize_text_field ( $_POST ['lesson-maximum-mark'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'lesson-maximum-mark' );
 				}
 
 				if( isset( $_POST ['lesson-pass-percentage'] ) && $_POST ['lesson-pass-percentage'] != '' ) {
-					update_post_meta ( $post_id, 'lesson-pass-percentage', sanitize_text_field ( $_POST ['lesson-pass-percentage'] ) );
+					update_post_meta ( $post_id, 'lesson-pass-percentage', dtlms_recursive_sanitize_text_field ( $_POST ['lesson-pass-percentage'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'lesson-pass-percentage' );
 				}
 
 				if( isset( $_POST ['lesson-video'] ) && $_POST ['lesson-video'] != '') {
-					update_post_meta ( $post_id, 'lesson-video', sanitize_text_field ( $_POST ['lesson-video'] ) );
+					update_post_meta ( $post_id, 'lesson-video', dtlms_recursive_sanitize_text_field ( $_POST ['lesson-video'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'lesson-video' );
 				}

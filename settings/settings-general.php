@@ -28,7 +28,7 @@ function dtlms_settings_general_content() {
 
 	$tabs = apply_filters( 'dtlms_general_settings', $tabs );
 
-	$current = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'general_general';
+	$current = isset( $_GET['tab'] ) ? dtlms_recursive_sanitize_text_field( $_GET['tab'] ) : 'general_general';
 
 	dtlms_get_general_settings_submenus($current, $tabs);
 	dtlms_get_general_settings_tab($current, $tabs);

@@ -19,7 +19,7 @@ function dtlms_settings_assigning_content() {
 
 	$tabs = apply_filters( 'dtlms_assigning_settings', $tabs );
 
-	$current = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'courses_assign_students';
+	$current = isset( $_GET['tab'] ) ? dtlms_recursive_sanitize_text_field( $_GET['tab'] ) : 'courses_assign_students';
 
 	dtlms_get_assigning_settings_submenus($current, $tabs);
 	dtlms_get_assigning_settings_tab($current, $tabs);

@@ -91,31 +91,31 @@ class DTLMSPackagesPostType {
 		if ( (key_exists('post_type', $_POST)) && ('dtlms_packages' == $_POST['post_type']) ) :
 
 			if(isset( $_POST ['subtitle'] ) && !empty($_POST ['subtitle'])) {
-				update_post_meta ( $post_id, 'subtitle', sanitize_text_field ( $_POST ['subtitle'] ) );
+				update_post_meta ( $post_id, 'subtitle', dtlms_recursive_sanitize_text_field ( $_POST ['subtitle'] ) );
 			} else {
 				delete_post_meta ( $post_id, 'subtitle' );
 			}
 
 			if(isset( $_POST ['courses-included'] ) && $_POST ['courses-included'] != '' ) {
-				update_post_meta ( $post_id, 'courses-included', sanitize_text_field ( $_POST ['courses-included'] ) );
+				update_post_meta ( $post_id, 'courses-included', dtlms_recursive_sanitize_text_field ( $_POST ['courses-included'] ) );
 			} else {
 				delete_post_meta ( $post_id, 'courses-included' );
 			}
 
 			if(isset( $_POST ['classes-included'] ) && $_POST ['classes-included'] != '' ) {
-				update_post_meta ( $post_id, 'classes-included', sanitize_text_field ( $_POST ['classes-included'] ) );
+				update_post_meta ( $post_id, 'classes-included', dtlms_recursive_sanitize_text_field ( $_POST ['classes-included'] ) );
 			} else {
 				delete_post_meta ( $post_id, 'classes-included' );
 			}
 
 			if(isset( $_POST ['period'] ) && !empty($_POST ['period'])) {
-				update_post_meta ( $post_id, 'period', sanitize_text_field ( $_POST ['period'] ) );
+				update_post_meta ( $post_id, 'period', dtlms_recursive_sanitize_text_field ( $_POST ['period'] ) );
 			} else {
 				delete_post_meta ( $post_id, 'period' );
 			}
 
 			if(isset( $_POST ['term'] ) && !empty($_POST ['term'])) {
-				update_post_meta ( $post_id, 'term', sanitize_text_field ( $_POST ['term'] ) );
+				update_post_meta ( $post_id, 'term', dtlms_recursive_sanitize_text_field ( $_POST ['term'] ) );
 			} else {
 				delete_post_meta ( $post_id, 'term' );
 			}

@@ -407,16 +407,16 @@ function dtlms_generate_purchases_overview_chart() {
 
 	$output = '';
 
-	$chart_title             = sanitize_text_field( $_REQUEST['charttitle'] );
-	$includeclasspurchases   = sanitize_text_field( $_REQUEST['includeclasspurchases'] );
-	$includecoursepurchases  = sanitize_text_field( $_REQUEST['includecoursepurchases'] );
-	$includepackagepurchases = sanitize_text_field( $_REQUEST['includepackagepurchases'] );
-	$includedata             = sanitize_text_field( $_REQUEST['includedata'] );
-	$overviewchartoption     = sanitize_text_field( $_REQUEST['overviewchartoption'] );
-	$firstcolor              = sanitize_text_field( $_REQUEST['firstcolor'] );
-	$secondcolor             = sanitize_text_field( $_REQUEST['secondcolor'] );
-	$thirdcolor              = sanitize_text_field( $_REQUEST['thirdcolor'] );
-	$instructor_id           = isset($_REQUEST['instructorid']) ? sanitize_text_field( $_REQUEST['instructorid'] ) : -1;
+	$chart_title             = dtlms_recursive_sanitize_text_field( $_REQUEST['charttitle'] );
+	$includeclasspurchases   = dtlms_recursive_sanitize_text_field( $_REQUEST['includeclasspurchases'] );
+	$includecoursepurchases  = dtlms_recursive_sanitize_text_field( $_REQUEST['includecoursepurchases'] );
+	$includepackagepurchases = dtlms_recursive_sanitize_text_field( $_REQUEST['includepackagepurchases'] );
+	$includedata             = dtlms_recursive_sanitize_text_field( $_REQUEST['includedata'] );
+	$overviewchartoption     = dtlms_recursive_sanitize_text_field( $_REQUEST['overviewchartoption'] );
+	$firstcolor              = dtlms_recursive_sanitize_text_field( $_REQUEST['firstcolor'] );
+	$secondcolor             = dtlms_recursive_sanitize_text_field( $_REQUEST['secondcolor'] );
+	$thirdcolor              = dtlms_recursive_sanitize_text_field( $_REQUEST['thirdcolor'] );
+	$instructor_id           = isset($_REQUEST['instructorid']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['instructorid'] ) : -1;
 
 	if($overviewchartoption == 'daily') {
 		$chart_xaxis_label = esc_html__('Days', 'dtlms-lite');
@@ -806,17 +806,17 @@ function dtlms_generate_commissions_overview_chart() {
 
 	$output = '';
 
-	$overviewchartoption     = sanitize_text_field( $_REQUEST['overviewchartoption'] );
-	$charttitle              = sanitize_text_field( $_REQUEST['charttitle'] );
-	$instructorearnings      = sanitize_text_field( $_REQUEST['instructorearnings'] );
-	$contentfilter           = sanitize_text_field( $_REQUEST['contentfilter'] );
-	$charttype               = sanitize_text_field( $_REQUEST['charttype'] );
-	$timelinefilter          = sanitize_text_field( $_REQUEST['timelinefilter'] );
-	$includecoursecommission = sanitize_text_field( $_REQUEST['includecoursecommission'] );
-	$includeclasscommission  = sanitize_text_field( $_REQUEST['includeclasscommission'] );
-	$includeothercommission  = sanitize_text_field( $_REQUEST['includeothercommission'] );
-	$includetotalcommission  = sanitize_text_field( $_REQUEST['includetotalcommission'] );
-	$instructorid            = isset($_REQUEST['instructorid']) ? sanitize_text_field( $_REQUEST['instructorid'] ) : -1;
+	$overviewchartoption     = dtlms_recursive_sanitize_text_field( $_REQUEST['overviewchartoption'] );
+	$charttitle              = dtlms_recursive_sanitize_text_field( $_REQUEST['charttitle'] );
+	$instructorearnings      = dtlms_recursive_sanitize_text_field( $_REQUEST['instructorearnings'] );
+	$contentfilter           = dtlms_recursive_sanitize_text_field( $_REQUEST['contentfilter'] );
+	$charttype               = dtlms_recursive_sanitize_text_field( $_REQUEST['charttype'] );
+	$timelinefilter          = dtlms_recursive_sanitize_text_field( $_REQUEST['timelinefilter'] );
+	$includecoursecommission = dtlms_recursive_sanitize_text_field( $_REQUEST['includecoursecommission'] );
+	$includeclasscommission  = dtlms_recursive_sanitize_text_field( $_REQUEST['includeclasscommission'] );
+	$includeothercommission  = dtlms_recursive_sanitize_text_field( $_REQUEST['includeothercommission'] );
+	$includetotalcommission  = dtlms_recursive_sanitize_text_field( $_REQUEST['includetotalcommission'] );
+	$instructorid            = isset($_REQUEST['instructorid']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['instructorid'] ) : -1;
 
 	if($charttitle == '') {
 		if($instructorearnings == 'over-period') {
@@ -1473,26 +1473,26 @@ function dtlms_load_instructorwise_courses() {
 	if($instructor_dashboard_id > 0) {
 		$instructor_id = $instructor_dashboard_id;
 	} else {
-		$instructor_id = isset($_REQUEST['instructor_id']) ? sanitize_text_field( $_REQUEST['instructor_id'] ) : -1;
+		$instructor_id = isset($_REQUEST['instructor_id']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['instructor_id'] ) : -1;
 	}
 
 	// Pagination script Start
 	$ajax_call           = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-	$current_page        = isset($_REQUEST['current_page']) ? sanitize_text_field( $_REQUEST['current_page'] ) : 1;
-	$offset              = isset($_REQUEST['offset']) ? sanitize_text_field( $_REQUEST['offset'] ) : 0;
+	$current_page        = isset($_REQUEST['current_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['current_page'] ) : 1;
+	$offset              = isset($_REQUEST['offset']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['offset'] ) : 0;
 	$backend_postperpage = (dtlms_option('general','backend-postperpage') != '') ? dtlms_option('general','backend-postperpage') : 10;
-	$post_per_page       = isset($_REQUEST['post_per_page']) ? sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
+	$post_per_page       = isset($_REQUEST['post_per_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
 
 	if($dashboard_function_call != '') {
 		$function_call = $dashboard_function_call;
 	} else {
-		$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? sanitize_text_field( $_REQUEST['function_call'] ) : '';
+		$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['function_call'] ) : '';
 	}
 
 	if($dashboard_output_div != '') {
 		$output_div = $dashboard_output_div;
 	} else {
-		$output_div = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? sanitize_text_field( $_REQUEST['output_div'] ) : '';
+		$output_div = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['output_div'] ) : '';
 	}
 	// Pagination script End
 
@@ -1771,29 +1771,29 @@ function dtlms_load_instructorwise_commissions() {
 	if($instructor_dashboard_id > 0) {
 		$instructor_id = $instructor_dashboard_id;
 	} else {
-		$instructor_id = isset($_REQUEST['instructor_id']) ? sanitize_text_field( $_REQUEST['instructor_id'] ) : -1;
+		$instructor_id = isset($_REQUEST['instructor_id']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['instructor_id'] ) : -1;
 	}
 
 	// Pagination script Start
 	$ajax_call           = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-	$current_page        = isset($_REQUEST['current_page']) ? sanitize_text_field( $_REQUEST['current_page'] ) : 1;
-	$offset              = isset($_REQUEST['offset']) ? sanitize_text_field( $_REQUEST['offset'] ) : 0;
+	$current_page        = isset($_REQUEST['current_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['current_page'] ) : 1;
+	$offset              = isset($_REQUEST['offset']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['offset'] ) : 0;
 	$backend_postperpage = (dtlms_option('general','backend-postperpage') != '') ? dtlms_option('general','backend-postperpage') : 10;
-	$post_per_page       = isset($_REQUEST['post_per_page']) ? sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
+	$post_per_page       = isset($_REQUEST['post_per_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
 
 	if($dashboard_function_call != '') {
 		$function_call = $dashboard_function_call;
 	} else {
-		$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_instructorwise_commissions';
+		$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_instructorwise_commissions';
 	}
 
 	if($dashboard_output_div != '') {
 		$output_div = $dashboard_output_div;
 	} else {
-		$output_div = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-instructor-commissions-container';
+		$output_div = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-instructor-commissions-container';
 	}
 
-	$commissioncontent = isset($_REQUEST['commission_content']) ? sanitize_text_field( $_REQUEST['commission_content'] ) : 'course';
+	$commissioncontent = isset($_REQUEST['commission_content']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['commission_content'] ) : 'course';
 
 	// Pagination script End
 
@@ -2113,13 +2113,13 @@ function dtlms_load_statistics_instructor_content() {
 
 	// Pagination script Start
 	$ajax_call           = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-	$current_page        = isset($_REQUEST['current_page']) ? sanitize_text_field( $_REQUEST['current_page'] ) : 1;
-	$offset              = isset($_REQUEST['offset']) ? sanitize_text_field( $_REQUEST['offset'] ) : 0;
+	$current_page        = isset($_REQUEST['current_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['current_page'] ) : 1;
+	$offset              = isset($_REQUEST['offset']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['offset'] ) : 0;
 	$backend_postperpage = (dtlms_option('general','backend-postperpage') != '') ? dtlms_option('general','backend-postperpage') : 10;
-	$post_per_page       = isset($_REQUEST['post_per_page']) ? sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
+	$post_per_page       = isset($_REQUEST['post_per_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
 
-	$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_statistics_instructor_content';
-	$output_div    = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-instructor-statistics-container';
+	$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_statistics_instructor_content';
+	$output_div    = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-instructor-statistics-container';
 	// Pagination script End
 
 	$dtlms_cpt_items = apply_filters( 'dtlms_cpt_items', array () );
@@ -2383,13 +2383,13 @@ function dtlms_load_statistics_students_content() {
 
 	// Pagination script Start
 	$ajax_call           = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-	$current_page        = isset($_REQUEST['current_page']) ? sanitize_text_field( $_REQUEST['current_page'] ) : 1;
-	$offset              = isset($_REQUEST['offset']) ? sanitize_text_field( $_REQUEST['offset'] ) : 0;
+	$current_page        = isset($_REQUEST['current_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['current_page'] ) : 1;
+	$offset              = isset($_REQUEST['offset']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['offset'] ) : 0;
 	$backend_postperpage = (dtlms_option('general','backend-postperpage') != '') ? dtlms_option('general','backend-postperpage') : 10;
-	$post_per_page       = isset($_REQUEST['post_per_page']) ? sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
+	$post_per_page       = isset($_REQUEST['post_per_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
 
-	$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_statistics_students_content';
-	$output_div    = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-students-statistics-container';
+	$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_statistics_students_content';
+	$output_div    = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-students-statistics-container';
 	// Pagination script End
 
 	$class_plural_label = apply_filters( 'class_label', 'plural' );
@@ -2737,13 +2737,13 @@ function dtlms_load_statistics_packages_content() {
 
 	// Pagination script Start
 	$ajax_call           = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-	$current_page        = isset($_REQUEST['current_page']) ? sanitize_text_field( $_REQUEST['current_page'] ) : 1;
-	$offset              = isset($_REQUEST['offset']) ? sanitize_text_field( $_REQUEST['offset'] ) : 0;
+	$current_page        = isset($_REQUEST['current_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['current_page'] ) : 1;
+	$offset              = isset($_REQUEST['offset']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['offset'] ) : 0;
 	$backend_postperpage = (dtlms_option('general','backend-postperpage') != '') ? dtlms_option('general','backend-postperpage') : 10;
-	$post_per_page       = isset($_REQUEST['post_per_page']) ? sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
+	$post_per_page       = isset($_REQUEST['post_per_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
 
-	$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_statistics_packages_content';
-	$output_div    = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-package-statistics-container';
+	$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_load_statistics_packages_content';
+	$output_div    = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-package-statistics-container';
 	// Pagination script End
 
 	$dtlms_cpt_items = apply_filters( 'dtlms_cpt_items', array () );

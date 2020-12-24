@@ -4,7 +4,7 @@ add_action( 'wp_ajax_dtlms_assigning_load_students_data', 'dtlms_assigning_load_
 add_action( 'wp_ajax_nopriv_dtlms_assigning_load_students_data', 'dtlms_assigning_load_students_data' );
 function dtlms_assigning_load_students_data() {
 
-	$course_id = sanitize_text_field( $_REQUEST['course_id'] );
+	$course_id = dtlms_recursive_sanitize_text_field( $_REQUEST['course_id'] );
 
 	$output = '';
 
@@ -12,21 +12,21 @@ function dtlms_assigning_load_students_data() {
 
 		// Pagination script Start
 		$ajax_call           = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-		$current_page        = isset($_REQUEST['current_page']) ? sanitize_text_field( $_REQUEST['current_page'] ) : 1;
-		$offset              = isset($_REQUEST['offset']) ? sanitize_text_field( $_REQUEST['offset'] ) : 0;
+		$current_page        = isset($_REQUEST['current_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['current_page'] ) : 1;
+		$offset              = isset($_REQUEST['offset']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['offset'] ) : 0;
 		$backend_postperpage = (dtlms_option('general','backend-postperpage') != '') ? dtlms_option('general','backend-postperpage') : 10;
-		$post_per_page       = isset($_REQUEST['post_per_page']) ? sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
+		$post_per_page       = isset($_REQUEST['post_per_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
 
 		if($dashboard_function_call != '') {
 			$function_call = $dashboard_function_call;
 		} else {
-			$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_assigning_load_students_data';
+			$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_assigning_load_students_data';
 		}
 
 		if($dashboard_output_div != '') {
 			$output_div = $dashboard_output_div;
 		} else {
-			$output_div = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-assign-studentstocourse-container';
+			$output_div = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-assign-studentstocourse-container';
 		}
 		// Pagination script End
 		$output .= '<form name="formAssignStudents" class="formAssignStudents" method="post">';
@@ -134,9 +134,9 @@ add_action( 'wp_ajax_dtlms_save_assign_students_settings', 'dtlms_save_assign_st
 add_action( 'wp_ajax_nopriv_dtlms_save_assign_students_settings', 'dtlms_save_assign_students_settings' );
 function dtlms_save_assign_students_settings() {
 
-	$course_id        = sanitize_text_field( $_REQUEST['course_id'] );
-	$page_student_ids = !empty($_REQUEST['page_student_ids']) ? explode(',', sanitize_text_field( $_REQUEST['page_student_ids'] )) : array ();
-	$student_ids      = is_array($_REQUEST['student_ids']) && !empty($_REQUEST['student_ids']) ? sanitize_text_field( $_REQUEST['student_ids'] ) : array ();
+	$course_id        = dtlms_recursive_sanitize_text_field( $_REQUEST['course_id'] );
+	$page_student_ids = !empty($_REQUEST['page_student_ids']) ? explode(',', dtlms_recursive_sanitize_text_field( $_REQUEST['page_student_ids'] )) : array ();
+	$student_ids      = is_array($_REQUEST['student_ids']) && !empty($_REQUEST['student_ids']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['student_ids'] ) : array ();
 
 	$output = '';
 
@@ -190,7 +190,7 @@ add_action( 'wp_ajax_dtlms_assigning_load_courses_data', 'dtlms_assigning_load_c
 add_action( 'wp_ajax_nopriv_dtlms_assigning_load_courses_data', 'dtlms_assigning_load_courses_data' );
 function dtlms_assigning_load_courses_data() {
 
-	$student_id = sanitize_text_field( $_REQUEST['student_id'] );
+	$student_id = dtlms_recursive_sanitize_text_field( $_REQUEST['student_id'] );
 
 	$output = '';
 
@@ -198,21 +198,21 @@ function dtlms_assigning_load_courses_data() {
 
 		// Pagination script Start
 		$ajax_call           = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-		$current_page        = isset($_REQUEST['current_page']) ? sanitize_text_field( $_REQUEST['current_page'] ) : 1;
-		$offset              = isset($_REQUEST['offset']) ? sanitize_text_field( $_REQUEST['offset'] ) : 0;
+		$current_page        = isset($_REQUEST['current_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['current_page'] ) : 1;
+		$offset              = isset($_REQUEST['offset']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['offset'] ) : 0;
 		$backend_postperpage = (dtlms_option('general','backend-postperpage') != '') ? dtlms_option('general','backend-postperpage') : 10;
-		$post_per_page       = isset($_REQUEST['post_per_page']) ? sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
+		$post_per_page       = isset($_REQUEST['post_per_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['post_per_page'] ) : $backend_postperpage;
 
 		if($dashboard_function_call != '') {
 			$function_call = $dashboard_function_call;
 		} else {
-			$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_assigning_load_courses_data';
+			$function_call = (isset($_REQUEST['function_call']) && $_REQUEST['function_call'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['function_call'] ) : 'dtlms_assigning_load_courses_data';
 		}
 
 		if($dashboard_output_div != '') {
 			$output_div = $dashboard_output_div;
 		} else {
-			$output_div = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-assign-coursestostudent-container';
+			$output_div = (isset($_REQUEST['output_div']) && $_REQUEST['output_div'] != '') ? dtlms_recursive_sanitize_text_field( $_REQUEST['output_div'] ) : 'dtlms-assign-coursestostudent-container';
 		}
 		// Pagination script End
 
@@ -340,9 +340,9 @@ add_action( 'wp_ajax_dtlms_save_assign_courses_settings', 'dtlms_save_assign_cou
 add_action( 'wp_ajax_nopriv_dtlms_save_assign_courses_settings', 'dtlms_save_assign_courses_settings' );
 function dtlms_save_assign_courses_settings() {
 
-	$student_id      = sanitize_text_field( $_REQUEST['student_id'] );
-	$page_course_ids = !empty($_REQUEST['page_course_ids']) ? explode(',', sanitize_text_field( $_REQUEST['page_course_ids'] ) ) : array ();
-	$course_ids      = is_array($_REQUEST['course_ids']) && !empty($_REQUEST['course_ids']) ? sanitize_text_field( $_REQUEST['course_ids'] ) : array ();
+	$student_id      = dtlms_recursive_sanitize_text_field( $_REQUEST['student_id'] );
+	$page_course_ids = !empty($_REQUEST['page_course_ids']) ? explode(',', dtlms_recursive_sanitize_text_field( $_REQUEST['page_course_ids'] ) ) : array ();
+	$course_ids      = is_array($_REQUEST['course_ids']) && !empty($_REQUEST['course_ids']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['course_ids'] ) : array ();
 
 	$output = '';
 

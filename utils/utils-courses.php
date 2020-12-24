@@ -219,10 +219,10 @@ add_action( 'wp_ajax_dtlms_start_course_initialize', 'dtlms_start_course_initial
 add_action( 'wp_ajax_nopriv_dtlms_start_course_initialize', 'dtlms_start_course_initialize' );
 function dtlms_start_course_initialize() {
 
-	$startcourse_nonce = sanitize_text_field( $_POST['startcourse_nonce'] );
-	$course_id         = sanitize_text_field( $_POST['course_id'] );
-	$user_id           = sanitize_text_field( $_POST['user_id'] );
-	$author_id         = sanitize_text_field( $_POST['author_id'] );
+	$startcourse_nonce = dtlms_recursive_sanitize_text_field( $_POST['startcourse_nonce'] );
+	$course_id         = dtlms_recursive_sanitize_text_field( $_POST['course_id'] );
+	$user_id           = dtlms_recursive_sanitize_text_field( $_POST['user_id'] );
+	$author_id         = dtlms_recursive_sanitize_text_field( $_POST['author_id'] );
 
 	if(isset($startcourse_nonce) && wp_verify_nonce($startcourse_nonce, 'start_course_'.$course_id.'_'.$user_id)) {
 
@@ -476,10 +476,10 @@ add_action( 'wp_ajax_dtlms_submit_course_initialize', 'dtlms_submit_course_initi
 add_action( 'wp_ajax_nopriv_dtlms_submit_course_initialize', 'dtlms_submit_course_initialize' );
 function dtlms_submit_course_initialize() {
 
-	$submitcourse_nonce = sanitize_text_field( $_POST['submitcourse_nonce'] );
-	$course_id          = sanitize_text_field( $_POST['course_id'] );
-	$user_id            = sanitize_text_field( $_POST['user_id'] );
-	$author_id          = sanitize_text_field( $_POST['author_id'] );
+	$submitcourse_nonce = dtlms_recursive_sanitize_text_field( $_POST['submitcourse_nonce'] );
+	$course_id          = dtlms_recursive_sanitize_text_field( $_POST['course_id'] );
+	$user_id            = dtlms_recursive_sanitize_text_field( $_POST['user_id'] );
+	$author_id          = dtlms_recursive_sanitize_text_field( $_POST['author_id'] );
 
 	if(isset($submitcourse_nonce) && wp_verify_nonce($submitcourse_nonce, 'submit_course_'.$course_id.'_'.$user_id)) {
 
@@ -1154,7 +1154,7 @@ function dtlms_courses_listing_cost_field($request, $ajax_load, $column_cnt) {
 
 	if($ajax_load) {
 
-		$coursefilter_cost = isset($_REQUEST['coursefilter-cost']) ? sanitize_text_field( $_REQUEST['coursefilter-cost'] ) : 'all';
+		$coursefilter_cost = isset($_REQUEST['coursefilter-cost']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['coursefilter-cost'] ) : 'all';
        	$output .= '<div class="dtlms-courses-cost-filter">
                         <div class="dtlms-title">'.esc_html__('Cost', 'dtlms-lite').'</div>
                         <ul>
@@ -1227,7 +1227,7 @@ function dtlms_courses_listing_display_field($request, $ajax_load, $column_cnt) 
 
 	if($ajax_load) {
 
-		$coursefilter_display = isset($_REQUEST['coursefilter-display-default']) ? sanitize_text_field( $_REQUEST['coursefilter-display-default'] ) : 'grid';
+		$coursefilter_display = isset($_REQUEST['coursefilter-display-default']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['coursefilter-display-default'] ) : 'grid';
 		if($coursefilter_display == 'grid') {
 			$grid_class = 'active';
 			$list_class = '';
@@ -1269,7 +1269,7 @@ function dtlms_courses_listing_orderby_field($request, $ajax_load, $column_cnt) 
 
 	if($ajax_load) {
 
-		$coursefilter_orderby = isset($_REQUEST['coursefilter-orderby']) ? sanitize_text_field( $_REQUEST['coursefilter-orderby'] ) : '';
+		$coursefilter_orderby = isset($_REQUEST['coursefilter-orderby']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['coursefilter-orderby'] ) : '';
 
 		$output .= '<div class="dtlms-courses-orderby-filter">
 			<label>'.esc_html__('Order by :', 'dtlms-lite').'</label>
@@ -1289,7 +1289,7 @@ function dtlms_courses_listing_orderby_field($request, $ajax_load, $column_cnt) 
 			$first_class = 'first';
 		}
 
-		$coursefilter_orderby = isset($_REQUEST['coursefilter-orderby']) ? sanitize_text_field( $_REQUEST['coursefilter-orderby'] ) : '';
+		$coursefilter_orderby = isset($_REQUEST['coursefilter-orderby']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['coursefilter-orderby'] ) : '';
 		$output .= '<div class="dtlms-column dtlms-one-third '.esc_attr( $first_class ).'">';
 	       	$output .= '<div class="dtlms-courses-orderby-filter">
 					        <select class="coursefilter-orderby dtlms-without-ajax-load dtlms-chosen-select" name="coursefilter-orderby" data-placeholder="'.esc_html__('Select Order', 'dtlms-lite').'">
@@ -1397,8 +1397,8 @@ function dtlms_courses_listing_content($courses_listing_options) {
 		}
 
 		if(isset($_REQUEST['coursefilter-display']) && $_REQUEST['coursefilter-display'] != '') {
-			$container_display_type = sanitize_text_field( $_REQUEST['coursefilter-display'] );
-			$_REQUEST['coursefilter-display-default'] = sanitize_text_field( $_REQUEST['coursefilter-display'] );
+			$container_display_type = dtlms_recursive_sanitize_text_field( $_REQUEST['coursefilter-display'] );
+			$_REQUEST['coursefilter-display-default'] = dtlms_recursive_sanitize_text_field( $_REQUEST['coursefilter-display'] );
 		} else {
 			$container_display_type = $display_type;
 			$_REQUEST['coursefilter-display-default'] = $display_type;
@@ -1556,30 +1556,30 @@ add_action( 'wp_ajax_dtlms_generate_courses_listing', 'dtlms_generate_courses_li
 add_action( 'wp_ajax_nopriv_dtlms_generate_courses_listing', 'dtlms_generate_courses_listing' );
 function dtlms_generate_courses_listing() {
 
-	$current_page = isset($_REQUEST['current_page']) ? sanitize_text_field( $_REQUEST['current_page'] ) : 1;
-	$offset       = isset($_REQUEST['offset']) ? sanitize_text_field( $_REQUEST['offset'] ) : 0;
+	$current_page = isset($_REQUEST['current_page']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['current_page'] ) : 1;
+	$offset       = isset($_REQUEST['offset']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['offset'] ) : 0;
 
-	$disable_filters  = sanitize_text_field( $_REQUEST['disable_filters'] );
-	$enable_fullwidth = sanitize_text_field( $_REQUEST['enable_fullwidth'] );
+	$disable_filters  = dtlms_recursive_sanitize_text_field( $_REQUEST['disable_filters'] );
+	$enable_fullwidth = dtlms_recursive_sanitize_text_field( $_REQUEST['enable_fullwidth'] );
 
-	$enable_carousel = sanitize_text_field( $_REQUEST['enable_carousel'] );
+	$enable_carousel = dtlms_recursive_sanitize_text_field( $_REQUEST['enable_carousel'] );
 	$carousel_class = '';
 	if($enable_carousel == 'true') {
 		$carousel_class = 'swiper-slide';
 	}
 
-	$post_per_page = sanitize_text_field( $_REQUEST['post_per_page'] );
-	$columns = sanitize_text_field( $_REQUEST['columns'] );
+	$post_per_page = dtlms_recursive_sanitize_text_field( $_REQUEST['post_per_page'] );
+	$columns = dtlms_recursive_sanitize_text_field( $_REQUEST['columns'] );
 
-	$show_author_details = sanitize_text_field( $_REQUEST['show_author_details'] );
+	$show_author_details = dtlms_recursive_sanitize_text_field( $_REQUEST['show_author_details'] );
 
 	if(isset($_REQUEST['display_type']) && $_REQUEST['display_type'] != '') {
-		$display_type = sanitize_text_field( $_REQUEST['display_type'] );
+		$display_type = dtlms_recursive_sanitize_text_field( $_REQUEST['display_type'] );
 	} else {
-		$display_type = isset($_REQUEST['default_display_type']) ? sanitize_text_field( $_REQUEST['default_display_type'] ): 'grid';
+		$display_type = isset($_REQUEST['default_display_type']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['default_display_type'] ): 'grid';
 	}
 
-	$type = isset($_REQUEST['type']) ? sanitize_text_field( $_REQUEST['type'] ) : 'type1';
+	$type = isset($_REQUEST['type']) ? dtlms_recursive_sanitize_text_field( $_REQUEST['type'] ) : 'type1';
 	$show_description = (isset($_REQUEST['show_description']) && $_REQUEST['show_description'] == 'true') ? true : false;
 
 
@@ -1605,7 +1605,7 @@ function dtlms_generate_courses_listing() {
 		}
 	}
 
-	$class = sanitize_text_field( $_REQUEST['class'] );
+	$class = dtlms_recursive_sanitize_text_field( $_REQUEST['class'] );
 	$category = array ();
 	$output = '';
 
@@ -1621,13 +1621,13 @@ function dtlms_generate_courses_listing() {
 
 	if($disable_filters != 'true') {
 
-		$search_text = sanitize_text_field( $_REQUEST['search_text'] );
-		$order_by    = sanitize_text_field( $_REQUEST['order_by'] );
-		$category    = sanitize_text_field( $_REQUEST['category'] );
-		$instructor  = sanitize_text_field( $_REQUEST['instructor'] );
-		$cost_type   = sanitize_text_field( $_REQUEST['cost_type'] );
+		$search_text = dtlms_recursive_sanitize_text_field( $_REQUEST['search_text'] );
+		$order_by    = dtlms_recursive_sanitize_text_field( $_REQUEST['order_by'] );
+		$category    = dtlms_recursive_sanitize_text_field( $_REQUEST['category'] );
+		$instructor  = dtlms_recursive_sanitize_text_field( $_REQUEST['instructor'] );
+		$cost_type   = dtlms_recursive_sanitize_text_field( $_REQUEST['cost_type'] );
 		$cost_type   = isset($cost_type[0]) ? $cost_type[0] : '';
-		$start_date  = sanitize_text_field( $_REQUEST['start_date'] );
+		$start_date  = dtlms_recursive_sanitize_text_field( $_REQUEST['start_date'] );
 		$start_date  = (isset($start_date) && $start_date != '') ? $start_date : '';
 
 		// Search Filter
@@ -1704,11 +1704,11 @@ function dtlms_generate_courses_listing() {
 
 	} else {
 
-		$default_filter      = sanitize_text_field( $_REQUEST['default_filter']);
-		$course_item_ids     = sanitize_text_field( $_REQUEST['course_item_ids']);
-		$course_category_ids = sanitize_text_field( $_REQUEST['course_category_ids']);
+		$default_filter      = dtlms_recursive_sanitize_text_field( $_REQUEST['default_filter']);
+		$course_item_ids     = dtlms_recursive_sanitize_text_field( $_REQUEST['course_item_ids']);
+		$course_category_ids = dtlms_recursive_sanitize_text_field( $_REQUEST['course_category_ids']);
 		$category            = $course_category_ids;
-		$instructor_ids      = sanitize_text_field( $_REQUEST['instructor_ids']);
+		$instructor_ids      = dtlms_recursive_sanitize_text_field( $_REQUEST['instructor_ids']);
 
 		// Course Item Ids Filter
 		if($course_item_ids != '') {
@@ -1769,8 +1769,8 @@ function dtlms_generate_courses_listing() {
 		}
 	}
 
-	$apply_isotope                  = sanitize_text_field( $_REQUEST['apply_isotope'] );
-	$enable_category_isotope_filter = sanitize_text_field( $_REQUEST['enable_category_isotope_filter'] );
+	$apply_isotope                  = dtlms_recursive_sanitize_text_field( $_REQUEST['apply_isotope'] );
+	$enable_category_isotope_filter = dtlms_recursive_sanitize_text_field( $_REQUEST['enable_category_isotope_filter'] );
 
 	if($apply_isotope == 'true') {
 		if($enable_category_isotope_filter == 'true') {

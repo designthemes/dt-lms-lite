@@ -95,37 +95,37 @@ if( !class_exists('DTLMSTaxonomyCustomFields') ) {
 		function dtlms_save_taxonomy_form_fields ( $term_id, $tt_id ) {
 
 			if( isset( $_POST['dtlms-category-image-url'] ) ){
-				$image_url = sanitize_text_field( $_POST['dtlms-category-image-url'] );
+				$image_url = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-image-url'] );
 				add_term_meta( $term_id, 'dtlms-category-image-url', $image_url, true );
 			}
 
 			if( isset( $_POST['dtlms-category-image-id'] ) ){
-				$image_id = sanitize_text_field( $_POST['dtlms-category-image-id'] );
+				$image_id = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-image-id'] );
 				add_term_meta( $term_id, 'dtlms-category-image-id', $image_id, true );
 			}
 
 			if( isset( $_POST['dtlms-category-iconimage-url'] ) ){
-				$iconimage_url = sanitize_text_field( $_POST['dtlms-category-iconimage-url'] );
+				$iconimage_url = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-iconimage-url'] );
 				add_term_meta( $term_id, 'dtlms-category-iconimage-url', $iconimage_url, true );
 			}
 
 			if( isset( $_POST['dtlms-category-iconimage-id'] ) ){
-				$iconimage_id = sanitize_text_field( $_POST['dtlms-category-iconimage-id'] );
+				$iconimage_id = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-iconimage-id'] );
 				add_term_meta( $term_id, 'dtlms-category-iconimage-id', $iconimage_id, true );
 			}
 
 			if( isset( $_POST['dtlms-category-icon'] ) ){
-				$category_icon = sanitize_text_field( $_POST['dtlms-category-icon'] );
+				$category_icon = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-icon'] );
 				add_term_meta( $term_id, 'dtlms-category-icon', $category_icon, true );
 			}
 
 			if( isset( $_POST['dtlms-category-icon-color'] ) ){
-				$category_icon_color = sanitize_text_field( $_POST['dtlms-category-icon-color'] );
+				$category_icon_color = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-icon-color'] );
 				add_term_meta( $term_id, 'dtlms-category-icon-color', $category_icon_color, true );
 			}
 
 			if( isset( $_POST['dtlms-background-color'] ) ){
-				$background_color = sanitize_text_field( $_POST['dtlms-background-color'] );
+				$background_color = dtlms_recursive_sanitize_text_field( $_POST['dtlms-background-color'] );
 				add_term_meta( $term_id, 'dtlms-background-color', $background_color, true );
 			}
 
@@ -212,49 +212,49 @@ if( !class_exists('DTLMSTaxonomyCustomFields') ) {
 			}
 
 			if( isset( $_POST['dtlms-category-image-url'] ) && '' !== $_POST['dtlms-category-image-url'] ){
-				$image_url = sanitize_text_field( $_POST['dtlms-category-image-url'] );
+				$image_url = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-image-url'] );
 				update_term_meta ( $term_id, 'dtlms-category-image-url', $image_url );
 			} else {
 				update_term_meta ( $term_id, 'dtlms-category-image-url', '' );
 			}
 
 			if( isset( $_POST['dtlms-category-image-id'] ) && '' !== $_POST['dtlms-category-image-id'] ){
-				$image_id = sanitize_text_field( $_POST['dtlms-category-image-id'] );
+				$image_id = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-image-id'] );
 				update_term_meta ( $term_id, 'dtlms-category-image-id', $image_id );
 			} else {
 				update_term_meta ( $term_id, 'dtlms-category-image-id', '' );
 			}
 
 			if( isset( $_POST['dtlms-category-iconimage-url'] ) && '' !== $_POST['dtlms-category-iconimage-url'] ){
-				$iconimage_url = sanitize_text_field( $_POST['dtlms-category-iconimage-url'] );
+				$iconimage_url = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-iconimage-url'] );
 				update_term_meta ( $term_id, 'dtlms-category-iconimage-url', $iconimage_url );
 			} else {
 				update_term_meta ( $term_id, 'dtlms-category-iconimage-url', '' );
 			}
 
 			if( isset( $_POST['dtlms-category-iconimage-id'] ) && '' !== $_POST['dtlms-category-iconimage-id'] ){
-				$iconimage_id = sanitize_text_field( $_POST['dtlms-category-iconimage-id'] );
+				$iconimage_id = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-iconimage-id'] );
 				update_term_meta ( $term_id, 'dtlms-category-iconimage-id', $iconimage_id );
 			} else {
 				update_term_meta ( $term_id, 'dtlms-category-iconimage-id', '' );
 			}
 
 			if( isset( $_POST['dtlms-category-icon'] ) && '' !== $_POST['dtlms-category-icon'] ){
-				$icon = sanitize_text_field( $_POST['dtlms-category-icon'] );
+				$icon = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-icon'] );
 				update_term_meta ( $term_id, 'dtlms-category-icon', $icon );
 			} else {
 				update_term_meta ( $term_id, 'dtlms-category-icon', '' );
 			}
 
 			if( isset( $_POST['dtlms-category-icon-color'] ) && '' !== $_POST['dtlms-category-icon-color'] ){
-				$icon_color = sanitize_text_field( $_POST['dtlms-category-icon-color'] );
+				$icon_color = dtlms_recursive_sanitize_text_field( $_POST['dtlms-category-icon-color'] );
 				update_term_meta ( $term_id, 'dtlms-category-icon-color', $icon_color );
 			} else {
 				update_term_meta ( $term_id, 'dtlms-category-icon-color', '' );
 			}
 
 			if( isset( $_POST['dtlms-background-color'] ) && '' !== $_POST['dtlms-background-color'] ){
-				$background_color = sanitize_text_field( $_POST['dtlms-background-color'] );
+				$background_color = dtlms_recursive_sanitize_text_field( $_POST['dtlms-background-color'] );
 				update_term_meta ( $term_id, 'dtlms-background-color', $background_color );
 			} else {
 				update_term_meta ( $term_id, 'dtlms-background-color', '' );

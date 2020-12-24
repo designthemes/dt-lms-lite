@@ -97,7 +97,7 @@ add_action( 'wp_ajax_dtlms_save_poc_settings', 'dtlms_save_poc_settings' );
 add_action( 'wp_ajax_nopriv_dtlms_save_poc_settings', 'dtlms_save_poc_settings' );
 function dtlms_save_poc_settings() {
 
-	$dtlms_poc_settings = sanitize_text_field( $_REQUEST['dtlms-poc-settings'] );
+	$dtlms_poc_settings = dtlms_recursive_sanitize_text_field( $_REQUEST['dtlms-poc-settings'] );
 
 	update_option('dtlms-poc-settings', $dtlms_poc_settings);
 

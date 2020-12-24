@@ -60,7 +60,7 @@ function dtlms_statistics_options($current) {
 
 	$tabs = apply_filters( 'dtlms_statistics', $tabs );
 
-	$current = isset( $_GET['parenttab'] ) ? sanitize_text_field( $_GET['parenttab'] ) : 'overview';
+	$current = isset( $_GET['parenttab'] ) ? dtlms_recursive_sanitize_text_field( $_GET['parenttab'] ) : 'overview';
 
 	dtlms_get_statistics_submenus($current, $tabs);
 	dtlms_get_statistics_tab($current, $tabs);

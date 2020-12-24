@@ -4,12 +4,12 @@ add_action( 'wp_ajax_dtlms_revoke_user_submission', 'dtlms_revoke_user_submissio
 add_action( 'wp_ajax_nopriv_dtlms_revoke_user_submission', 'dtlms_revoke_user_submission' );
 function dtlms_revoke_user_submission() {
 
-	$item_type = sanitize_text_field( $_POST['item_type'] );
+	$item_type = dtlms_recursive_sanitize_text_field( $_POST['item_type'] );
 
 	if($item_type == 'course') {
 
-		$course_id = sanitize_text_field( $_POST['course_id'] );
-		$user_id   = sanitize_text_field( $_POST['user_id'] );
+		$course_id = dtlms_recursive_sanitize_text_field( $_POST['course_id'] );
+		$user_id   = dtlms_recursive_sanitize_text_field( $_POST['user_id'] );
 
 		$submitted_users = get_post_meta($course_id, 'submitted_users', true);
 		$submitted_users = (is_array($submitted_users) && !empty($submitted_users)) ? $submitted_users : array();
@@ -67,8 +67,8 @@ function dtlms_revoke_user_submission() {
 
 	if($item_type == 'class') {
 
-		$class_id = sanitize_text_field( $_POST['class_id'] );
-		$user_id  = sanitize_text_field( $_POST['user_id'] );
+		$class_id = dtlms_recursive_sanitize_text_field( $_POST['class_id'] );
+		$user_id  = dtlms_recursive_sanitize_text_field( $_POST['user_id'] );
 
 		$submitted_users = get_post_meta($class_id, 'submitted_users', true);
 		$submitted_users = (is_array($submitted_users) && !empty($submitted_users)) ? $submitted_users : array();

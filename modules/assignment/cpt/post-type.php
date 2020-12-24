@@ -101,25 +101,25 @@ if( !class_exists('DTLMSAssignmentPostType') ) {
 			if ( (key_exists('post_type', $_POST)) && ('dtlms_assignments' == $_POST['post_type']) ) :
 
 				if( isset( $_POST ['free-assignment'] ) && $_POST ['free-assignment'] != '' ) {
-					update_post_meta ( $post_id, 'free-assignment', sanitize_text_field( $_POST ['free-assignment'] ) );
+					update_post_meta ( $post_id, 'free-assignment', dtlms_recursive_sanitize_text_field( $_POST ['free-assignment'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'free-assignment' );
 				}
 
 				if( isset( $_POST ['assignment-subtitle'] ) && $_POST ['assignment-subtitle'] != '' ) {
-					update_post_meta ( $post_id, 'assignment-subtitle', sanitize_text_field ( $_POST ['assignment-subtitle'] ) );
+					update_post_meta ( $post_id, 'assignment-subtitle', dtlms_recursive_sanitize_text_field ( $_POST ['assignment-subtitle'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'assignment-subtitle' );
 				}
 
 				if( isset( $_POST ['assignment-maximum-mark'] ) && $_POST ['assignment-maximum-mark'] != '' ) {
-					update_post_meta ( $post_id, 'assignment-maximum-mark', sanitize_text_field ( $_POST ['assignment-maximum-mark'] ) );
+					update_post_meta ( $post_id, 'assignment-maximum-mark', dtlms_recursive_sanitize_text_field ( $_POST ['assignment-maximum-mark'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'assignment-maximum-mark' );
 				}
 
 				if( isset( $_POST ['assignment-pass-percentage'] ) && $_POST ['assignment-pass-percentage'] != '' ) {
-					update_post_meta ( $post_id, 'assignment-pass-percentage', sanitize_text_field ( $_POST ['assignment-pass-percentage'] ) );
+					update_post_meta ( $post_id, 'assignment-pass-percentage', dtlms_recursive_sanitize_text_field ( $_POST ['assignment-pass-percentage'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'assignment-pass-percentage' );
 				}
@@ -131,13 +131,13 @@ if( !class_exists('DTLMSAssignmentPostType') ) {
 				}
 
 				if( isset( $_POST ['assignment-enable-attachment'] ) && $_POST ['assignment-enable-attachment'] != '' ) {
-					update_post_meta ( $post_id, 'assignment-enable-attachment', sanitize_text_field ( $_POST ['assignment-enable-attachment'] ) );
+					update_post_meta ( $post_id, 'assignment-enable-attachment', dtlms_recursive_sanitize_text_field ( $_POST ['assignment-enable-attachment'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'assignment-enable-attachment' );
 				}
 
 				if( isset( $_POST ['assignment-attachment-type'] ) && $_POST ['assignment-attachment-type'] != '' ) {
-					update_post_meta ( $post_id, 'assignment-attachment-type',  sanitize_text_field( $_POST ['assignment-attachment-type'] ) );
+					update_post_meta ( $post_id, 'assignment-attachment-type',  dtlms_recursive_sanitize_text_field( $_POST ['assignment-attachment-type'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'assignment-attachment-type' );
 				}
@@ -145,7 +145,7 @@ if( !class_exists('DTLMSAssignmentPostType') ) {
 				if($_POST ['assignment-attachment-size'] > dtlms_get_upload_size()) {
 					$attachment_size = 0;
 				} else {
-					$attachment_size = sanitize_text_field( $_POST ['assignment-attachment-size'] );
+					$attachment_size = dtlms_recursive_sanitize_text_field( $_POST ['assignment-attachment-size'] );
 				}
 
 				if( isset( $_POST ['assignment-attachment-size'] ) && $_POST ['assignment-attachment-size'] != '' ) {
@@ -155,13 +155,13 @@ if( !class_exists('DTLMSAssignmentPostType') ) {
 				}
 
 				if( isset( $_POST ['duration'] ) && $_POST ['duration'] != '') {
-					update_post_meta ( $post_id, 'duration', sanitize_text_field ( $_POST ['duration'] ) );
+					update_post_meta ( $post_id, 'duration', dtlms_recursive_sanitize_text_field ( $_POST ['duration'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'duration' );
 				}
 
 				if( isset( $_POST ['duration-parameter'] ) && $_POST ['duration-parameter'] != '') {
-					update_post_meta ( $post_id, 'duration-parameter', sanitize_text_field ( $_POST ['duration-parameter'] ) );
+					update_post_meta ( $post_id, 'duration-parameter', dtlms_recursive_sanitize_text_field ( $_POST ['duration-parameter'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'duration-parameter' );
 				}

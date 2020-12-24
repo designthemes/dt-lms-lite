@@ -258,19 +258,19 @@ if ( ! class_exists( 'DTLmsDesignThemes' ) ) {
 			if ( (key_exists('post_type', $_POST)) && (in_array($_POST['post_type'], array ('dtlms_courses', 'dtlms_classes', 'dtlms_packages')))) :
 
 				if(isset($_POST['dtlms-show-breadcrumb']) && $_POST['dtlms-show-breadcrumb'] != '') {
-					update_post_meta($post_id, 'dtlms-show-breadcrumb', sanitize_text_field($_POST['dtlms-show-breadcrumb']));
+					update_post_meta($post_id, 'dtlms-show-breadcrumb', dtlms_recursive_sanitize_text_field($_POST['dtlms-show-breadcrumb']));
 				} else {
 					delete_post_meta($post_id, 'dtlms-show-breadcrumb' );
 				}
 
 				if(isset($_POST['dtlms-breadcrumb']) && !empty($_POST['dtlms-breadcrumb'])) {
-					update_post_meta ( $post_id, 'dtlms-breadcrumb', array_unique( sanitize_text_field( $_POST ['dtlms-breadcrumb'] ) ) );
+					update_post_meta ( $post_id, 'dtlms-breadcrumb', array_unique( dtlms_recursive_sanitize_text_field( $_POST ['dtlms-breadcrumb'] ) ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtlms-breadcrumb' );
 				}
 
 				if(isset($_POST['dtlms-remove-top-space']) && $_POST['dtlms-remove-top-space'] != '') {
-					update_post_meta($post_id, 'dtlms-remove-top-space', sanitize_text_field($_POST['dtlms-remove-top-space']));
+					update_post_meta($post_id, 'dtlms-remove-top-space', dtlms_recursive_sanitize_text_field($_POST['dtlms-remove-top-space']));
 				} else {
 					delete_post_meta($post_id, 'dtlms-remove-top-space' );
 				}

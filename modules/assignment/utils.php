@@ -178,15 +178,15 @@ if(!function_exists('dtlms_generate_assignment_page_contents')) {
 if(!function_exists('dtlms_upload_assignment')) {
     function dtlms_upload_assignment() {
 
-        $uploadassignment_nonce = sanitize_text_field( $_POST['uploadassignment_nonce'] );
-        $course_id              = sanitize_text_field( $_POST['course_id'] );
-        $lesson_id              = sanitize_text_field( $_POST['lesson_id'] );
-        $quiz_id                = sanitize_text_field( $_POST['quiz_id'] );
-        $assignment_id          = sanitize_text_field( $_POST['assignment_id'] );
-        $user_id                = sanitize_text_field( $_POST['user_id'] );
-        $author_id              = sanitize_text_field( $_POST['author_id'] );
-        $assignment_grade_id    = sanitize_text_field( $_POST['assignment_grade_id'] );
-        $parent_curriculum_id   = sanitize_text_field( $_POST['parent_curriculum_id'] );
+        $uploadassignment_nonce = dtlms_recursive_sanitize_text_field( $_POST['uploadassignment_nonce'] );
+        $course_id              = dtlms_recursive_sanitize_text_field( $_POST['course_id'] );
+        $lesson_id              = dtlms_recursive_sanitize_text_field( $_POST['lesson_id'] );
+        $quiz_id                = dtlms_recursive_sanitize_text_field( $_POST['quiz_id'] );
+        $assignment_id          = dtlms_recursive_sanitize_text_field( $_POST['assignment_id'] );
+        $user_id                = dtlms_recursive_sanitize_text_field( $_POST['user_id'] );
+        $author_id              = dtlms_recursive_sanitize_text_field( $_POST['author_id'] );
+        $assignment_grade_id    = dtlms_recursive_sanitize_text_field( $_POST['assignment_grade_id'] );
+        $parent_curriculum_id   = dtlms_recursive_sanitize_text_field( $_POST['parent_curriculum_id'] );
 
         $output = '';
 
@@ -309,8 +309,8 @@ if(!function_exists('dtlms_upload_assignment')) {
 if(!function_exists('dtlms_view_assignment')) {
     function dtlms_view_assignment() {
 
-        $assignment_grade_id = (isset($_REQUEST['assignment_grade_id']) && !empty($_REQUEST['assignment_grade_id'])) ? sanitize_text_field( $_REQUEST['assignment_grade_id'] ): -1;
-        $assignment_id       = (isset($_REQUEST['assignment_id']) && !empty($_REQUEST['assignment_id'])) ? sanitize_text_field( $_REQUEST['assignment_id'] ): -1;
+        $assignment_grade_id = (isset($_REQUEST['assignment_grade_id']) && !empty($_REQUEST['assignment_grade_id'])) ? dtlms_recursive_sanitize_text_field( $_REQUEST['assignment_grade_id'] ): -1;
+        $assignment_id       = (isset($_REQUEST['assignment_id']) && !empty($_REQUEST['assignment_id'])) ? dtlms_recursive_sanitize_text_field( $_REQUEST['assignment_id'] ): -1;
 
         $output = dtlms_view_assignment_render_html($assignment_grade_id, $assignment_id, true);
 
@@ -404,15 +404,15 @@ if(!function_exists('dtlms_view_assignment_render_html')) {
 if(!function_exists('dtlms_submit_assignment')) {
     function dtlms_submit_assignment() {
 
-        $submitassignment_nonce = sanitize_text_field( $_POST['submitassignment_nonce'] );
-        $course_id              = sanitize_text_field( $_POST['course_id'] );
-        $user_id                = sanitize_text_field( $_POST['user_id'] );
-        $lesson_id              = sanitize_text_field( $_POST['lesson_id'] );
-        $quiz_id                = sanitize_text_field( $_POST['quiz_id'] );
-        $assignment_id          = sanitize_text_field( $_POST['assignment_id'] );
-        $author_id              = sanitize_text_field( $_POST['author_id'] );
-        $parent_curriculum_id   = sanitize_text_field( $_POST['parent_curriculum_id'] );
-        $next_curriculum_id     = sanitize_text_field( $_POST['next_curriculum_id'] );
+        $submitassignment_nonce = dtlms_recursive_sanitize_text_field( $_POST['submitassignment_nonce'] );
+        $course_id              = dtlms_recursive_sanitize_text_field( $_POST['course_id'] );
+        $user_id                = dtlms_recursive_sanitize_text_field( $_POST['user_id'] );
+        $lesson_id              = dtlms_recursive_sanitize_text_field( $_POST['lesson_id'] );
+        $quiz_id                = dtlms_recursive_sanitize_text_field( $_POST['quiz_id'] );
+        $assignment_id          = dtlms_recursive_sanitize_text_field( $_POST['assignment_id'] );
+        $author_id              = dtlms_recursive_sanitize_text_field( $_POST['author_id'] );
+        $parent_curriculum_id   = dtlms_recursive_sanitize_text_field( $_POST['parent_curriculum_id'] );
+        $next_curriculum_id     = dtlms_recursive_sanitize_text_field( $_POST['next_curriculum_id'] );
 
         if(isset($submitassignment_nonce) && wp_verify_nonce($submitassignment_nonce, 'submit_assignment_'.$assignment_id.'_'.$user_id)) {
 
@@ -434,8 +434,8 @@ if(!function_exists('dtlms_submit_assignment')) {
                 $assignment_attachment_type = get_post_meta ( $assignment_id, 'assignment-attachment-type', true);
                 $assignment_attachment_size = get_post_meta ( $assignment_id, 'assignment-attachment-size',true);
 
-                $assignment_attachment_names = sanitize_text_field( $_FILES['assignment-attachment']['name'] );
-                $assignment_attachment_sizes = sanitize_text_field( $_FILES['assignment-attachment']['size'] );
+                $assignment_attachment_names = dtlms_recursive_sanitize_text_field( $_FILES['assignment-attachment']['name'] );
+                $assignment_attachment_sizes = dtlms_recursive_sanitize_text_field( $_FILES['assignment-attachment']['size'] );
 
                 if(is_array($assignment_attachment_names) && !empty($assignment_attachment_names[0])) {
 
@@ -568,7 +568,7 @@ if(!function_exists('dtlms_submit_assignment')) {
 
             // Uploading new items
             $attachment_ids = $attachment_names = array ();
-            $assignmentAttachmentFiles = $_FILES['assignment-attachment'];
+            $assignmentAttachmentFiles = dtlms_recursive_sanitize_text_field( $_FILES['assignment-attachment'] );
             if(is_array($assignmentAttachmentFiles) && !empty($assignmentAttachmentFiles)) {
                 foreach ($assignmentAttachmentFiles['name'] as $key => $value) {
                     if ($assignmentAttachmentFiles['name'][$key]) {
@@ -579,7 +579,7 @@ if(!function_exists('dtlms_submit_assignment')) {
                             'error' => $assignmentAttachmentFiles['error'][$key],
                             'size' => $assignmentAttachmentFiles['size'][$key]
                         );
-                        $_FILES = array ('assignment-attachment' => $file);
+                        $_FILES = dtlms_recursive_sanitize_text_field ( array ('assignment-attachment' => $file ) );
                         foreach ($_FILES as $file => $array) {
                             $attachment_id = media_handle_upload( $file, $assignment_grade_id );
                             array_push($attachment_ids, $attachment_id);
